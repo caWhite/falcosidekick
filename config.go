@@ -132,7 +132,7 @@ func getConfig() *types.Configuration {
 	v.SetDefault("Kafka.Topic", "")
 	v.SetDefault("Kafka.Partition", 0)
 	v.SetDefault("Kafka.MinimumPriority", "")
-	v.SetDefault("Pagerduty.IntegrationKey", "")
+	v.SetDefault("Pagerduty.RoutingKey", "")
 	v.SetDefault("Pagerduty.MinimumPriority", "")
 	v.SetDefault("Kubeless.Namespace", "")
 	v.SetDefault("Kubeless.Function", "")

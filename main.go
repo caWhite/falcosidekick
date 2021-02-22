@@ -328,7 +328,7 @@ func init() {
 		}
 	}
 
-	if config.Pagerduty.IntegrationKey != "" {
+	if config.Pagerduty.RoutingKey != "" {
 		var err error
 		var url = "https://events.pagerduty.com/v2/enqueue"
 		var outputName = "Pagerduty"
@@ -336,7 +336,7 @@ func init() {
 		pagerdutyClient, err = outputs.NewClient(outputName, url, config, stats, promStats, statsdClient, dogstatsdClient)
 
 		if err != nil {
-			config.Pagerduty.IntegrationKey = ""
+			config.Pagerduty.RoutingKey = ""
 		} else {
 			outputs.EnabledOutputs = append(outputs.EnabledOutputs, outputName)
 		}

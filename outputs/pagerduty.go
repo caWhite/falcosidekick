@@ -4,7 +4,6 @@ import (
 	"github.com/PagerDuty/go-pagerduty"
 	"github.com/falcosecurity/falcosidekick/types"
 	"log"
-	"strings"
 	"time"
 )
 
@@ -12,7 +11,7 @@ import (
 func (c *Client) PagerdutyPost(falcopayload types.FalcoPayload) {
 	c.Stats.Pagerduty.Add(Total, 1)
 
-	event := createPagerdutyEvent(falcopayload, c.Config.Pagerduty.IntegrationKey)
+	event := createPagerdutyEvent(falcopayload, c.Config.Pagerduty)
 
 	_, err := pagerduty.ManageEvent(event)
 
@@ -30,14 +29,14 @@ func (c *Client) PagerdutyPost(falcopayload types.FalcoPayload) {
 	log.Printf("[INFO] : Pagerduty - Create Incident OK\n")
 }
 
-func createPagerdutyEvent(falcopayload types.FalcoPayload, routingKey string) pagerduty.V2Event {
+func createPagerdutyEvent(falcopayload types.FalcoPayload, config types.PagerdutyConfig) pagerduty.V2Event {
 	event := pagerduty.V2Event{
-		RoutingKey: routingKey,
+		RoutingKey: config.RoutingKey,
 		Action:     "trigger",
 		Payload: &pagerduty.V2Payload{
 			Source:    "falco",
 			Summary:   falcopayload.Output,
-			Severity:  strings.ToLower(falcopayload.Priority.String()),
+			Severity:  "critical",
 			Timestamp: falcopayload.Time.Format(time.RFC3339),
 			Details:   falcopayload.OutputFields,
 		},

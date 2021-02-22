@@ -213,7 +213,7 @@ func forwardEvent(falcopayload types.FalcoPayload) {
 		go kafkaClient.KafkaProduce(falcopayload)
 	}
 
-	if config.Pagerduty.IntegrationKey != "" && (falcopayload.Priority >= types.Priority(config.Pagerduty.MinimumPriority) || falcopayload.Rule == testRule) {
+	if config.Pagerduty.RoutingKey != "" && (falcopayload.Priority >= types.Priority(config.Pagerduty.MinimumPriority) || falcopayload.Rule == testRule) {
 		go pagerdutyClient.PagerdutyPost(falcopayload)
 	}
 
