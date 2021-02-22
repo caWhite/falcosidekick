@@ -255,11 +255,8 @@ type kafkaConfig struct {
 }
 
 type pagerdutyConfig struct {
-	APIKey           string
-	Service          string
-	Assignee         []string
-	EscalationPolicy string
-	MinimumPriority  string
+	IntegrationKey  string
+	MinimumPriority string
 }
 
 type kubelessConfig struct {
